@@ -6,7 +6,7 @@
 /*   By: jbota <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 17:29:34 by jbota             #+#    #+#             */
-/*   Updated: 2022/03/15 16:23:13 by jbota            ###   ########.fr       */
+/*   Updated: 2022/03/15 17:13:43 by jbota            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,23 @@ void	init_philos(t_data data)
 	}
 }
 
+void	init_threads(t_data data);
+{
+	int	i;
+
+	i = 0;
+	while (i++ < data.nb_philo)
+	{
+		if (pthread_create(data->philos[i].phil_th, NULL, &data->philos, NULL) != 0)
+			printf("Error creating the thread\n");
+	}
+	while (i++ < data.nb_philo)
+	{
+		if (pthread_join(data->philos[i].phil_th, NULL) != 0)
+			printf("Unable to join threds\n");
+	}
+}
+
 int main(int argc, char **argv)
 {
 	t_data	data;
@@ -58,7 +75,10 @@ int main(int argc, char **argv)
 		printf("Number of arguments are wrong\n");
 	i = 0;
 	read_args(argc, argv, data);
-	init_mutexi_fork(data);
+	init_mutex_fork(data);
+	init_threads(data);
 
+	pthread_mutex_destroy(&data.fork);
+	pthread_mutex_destroy(&data->philos.mutex);
 	return (0);
 }
