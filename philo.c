@@ -18,7 +18,8 @@ void	init_mutex_fork(t_data data)
 
 	i = 0;
 	data.forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!data.nb_forks)
+//	if (!data.nb_forks) check this
+	if (!data.forks)
 		printf("Unable to allocate memory\n");
 	while (i++ < data.nb_philo)
 	{
@@ -71,7 +72,7 @@ int main(int argc, char **argv)
 	int	i;
 
 	memset(&data, 0, sizeof(t_data));
-	if (argc != 5 && argc != 6)
+	if (argc != 5 || argc != 6)
 		printf("Number of arguments are wrong\n");
 	i = 0;
 	read_args(argc, argv, data);

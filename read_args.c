@@ -41,7 +41,7 @@ void	read_args(int argc, char **argv, t_data data)
 	int 	i;
 
 	i = 0;
-	if (data.nb_philo = ft_atoi(argv[1]) == '0')
+	if (data.nb_philo = ft_atoi(argv[1]) <= '0')
 		printf("It is necessary at least 1 Philosofer\n");	
 	data.time_die = ft_atoi(argv[2]);
 	data.time_eat = ft_atoi(argv[3]);
